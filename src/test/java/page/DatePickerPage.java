@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -18,7 +19,7 @@ public class DatePickerPage {
     By dropDownSelectMonthOnTime = By.xpath("//div[@class='react-datepicker__month-read-view']/preceding-sibling::div[@class='react-datepicker__month-dropdown']/div[contains(@class,'option')]");
     By dropDownSelectYearOnTime = By.xpath("//div[@class='react-datepicker__year-read-view']/preceding-sibling::div[@class='react-datepicker__year-dropdown']");
     By listTime = By.xpath("//div[@class='react-datepicker__time-box']/ul[@class='react-datepicker__time-list']/li");
-
+    Element element;
     int time = 60;
 
     public String getMonth(int month) {
@@ -141,7 +142,8 @@ public class DatePickerPage {
     }
 
     public void setBtnSelectDate(int month, int day, int year) {
-        DriverUlti.waitForElement(btnSelectDate, time);
+        element = new Element(btnSelectDate);
+        element.waitForElement(btnSelectDate, time);
         DriverUlti.click(btnSelectDate);
         DriverUlti.executeJS(btnSelectDate);
         DriverUlti.sendKeys(btnSelectDate, String.format("%s/%s/%s", month, day, year));
@@ -150,7 +152,8 @@ public class DatePickerPage {
     }
 
     public void setBtnSelectDateAndTime(int month, int day, int year, int hour, int minute) {
-        DriverUlti.waitForElement(btnSelectDateAndTime, time);
+        element = new Element(btnSelectDateAndTime);
+        element.waitForElement(btnSelectDateAndTime, time);
         DriverUlti.click(btnSelectDateAndTime);
         DriverUlti.executeJS(btnSelectDateAndTime);
         DriverUlti.sendKeys(btnSelectDateAndTime, String.format("%s/%s/%s %s:%s", month, day, year, hour, minute));
@@ -159,19 +162,22 @@ public class DatePickerPage {
     }
 
     public String getTxtDate() {
-        DriverUlti.waitForElement(btnSelectDate, time);
+        element = new Element(btnSelectDate);
+        element.waitForElement(btnSelectDate, time);
         return DriverUlti.getAttribute(btnSelectDate, "value");
     }
 
     public String getTxtDateAndTime() {
-        DriverUlti.waitForElement(btnSelectDateAndTime, time);
+        element = new Element(btnSelectDateAndTime);
+        element.waitForElement(btnSelectDateAndTime, time);
         return DriverUlti.getAttribute(btnSelectDateAndTime, "value");
     }
 
 // cach 2
 
     public void clickBoxDate() {
-        DriverUlti.waitForElement(btnSelectDate, time);
+        element = new Element(btnSelectDate);
+        element.waitForElement(btnSelectDate, time);
         DriverUlti.click(btnSelectDate);
         DriverUlti.waitMinus(3000);
     }
@@ -196,20 +202,23 @@ public class DatePickerPage {
 
     public void chooseDate(int day) {
         By listDay = By.xpath(String.format("(//div[@id='datePickerMonthYear']//div[@role='listbox']/div/div[contains(.,'%s') and not(contains(@class,'outside-month'))])[1]", day));
-        DriverUlti.waitForElementVisibility(listDay, time);
+        element = new Element(listDay);
+        element.waitForElementVisibility(listDay, time);
         DriverUlti.click(listDay);
         DriverUlti.waitMinus(2000);
     }
 
     public void selectYear(int year) {
-        DriverUlti.waitForElement(dropDownSelectYear, time);
+        element = new Element(dropDownSelectYear);
+        element.waitForElement(dropDownSelectYear, time);
         DriverUlti.click(dropDownSelectYear);
         chooseYear(year);
         DriverUlti.waitMinus(2000);
     }
 
     public void selectMonth(int month) {
-        DriverUlti.waitForElement(dropDownSelectMonth, time);
+        element = new Element(dropDownSelectMonth);
+        element.waitForElement(dropDownSelectMonth, time);
         DriverUlti.click(dropDownSelectMonth);
         chooseMonth(month);
         DriverUlti.waitMinus(2000);
@@ -228,13 +237,15 @@ public class DatePickerPage {
     }
 
     public void clickBoxDateAndTime(){
-        DriverUlti.waitForElement(btnSelectDateAndTime,time);
+        element = new Element(btnSelectDateAndTime);
+        element.waitForElement(btnSelectDateAndTime,time);
         DriverUlti.click(btnSelectDateAndTime);
         DriverUlti.waitMinus(2000);
     }
 
     public void chooseMonthTime(int month) {
-        DriverUlti.waitForElement(dropDownSelectMonthOnTime,time);
+        element = new Element(dropDownSelectMonthOnTime);
+        element.waitForElement(dropDownSelectMonthOnTime,time);
         List<WebElement> listMonth = DriverUlti.findElements(dropDownSelectMonthOnTime);
         for (int i = 0; i < listMonth.size(); i++) {
             if (listMonth.get(i).getText().equalsIgnoreCase(getMonth(month))) {
@@ -246,7 +257,8 @@ public class DatePickerPage {
 
     public void selectMonthTime(int month){
         clickBoxDateAndTime();
-        DriverUlti.waitForElement(iconMonthDropdown,time);
+        element = new Element(iconMonthDropdown);
+        element.waitForElement(iconMonthDropdown,time);
         DriverUlti.click(iconMonthDropdown);
         DriverUlti.waitMinus(2000);
         chooseMonthTime(month);

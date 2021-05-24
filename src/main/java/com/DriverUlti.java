@@ -3,12 +3,9 @@ package com;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -19,8 +16,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
-
 
 public class DriverUlti {
 
@@ -40,19 +35,19 @@ public class DriverUlti {
     public static void setDriver(String key) {
         switch (key) {
             case "edge":
-                System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "/driver/msedgedriver");
+                System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "/src/main/resources/driver/msedgedriver");
                 driver = new EdgeDriver();
                 break;
             case "firefox":
-                System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/driver/geckodriver");
+                System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/main/resources/driver/geckodriver");
                 driver = new FirefoxDriver();
                 break;
             case "safari":
-                System.setProperty("webdriver.safari.driver", System.getProperty("user.dir") + "/driver/SafariDriver.safariextz");
+                System.setProperty("webdriver.safari.driver", System.getProperty("user.dir") + "/src/main/resources/driver/SafariDriver.safariextz");
                 driver = new SafariDriver();
                 break;
             default:
-                System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/driver/chromedriver");
+                System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/resources/driver/chromedriver.exe");
                 driver = new ChromeDriver();
                 break;
         }
@@ -242,69 +237,7 @@ public class DriverUlti {
         driver.switchTo().alert().dismiss();
     }
 
-    public static void waitForElement(By by, int seconds) {
-        WebDriverWait waitElement = new WebDriverWait(driver, seconds);
-        waitElement.until(ExpectedConditions.presenceOfElementLocated(by));
-    }
 
-    public static void waitForElementVisibility(By by, int seconds) {
-        WebDriverWait waitElement = new WebDriverWait(driver, seconds);
-        waitElement.until(ExpectedConditions.visibilityOfElementLocated(by));
-    }
-
-
-    public static void waitForAllElementVisibility(By by, int seconds) {
-        WebDriverWait waitElement = new WebDriverWait(driver, seconds);
-        waitElement.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
-    }
-
-    public static void waitForPositionNotChange(By by, int seconds) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, seconds);
-        webDriverWait.until(new Function<WebDriver, Boolean>() {
-            @Override
-            public Boolean apply(WebDriver webDriver) {
-                WebElement e = driver.findElement(by);
-                Point oldP = e.getLocation();
-                waitMinus(200);
-                Point newP = e.getLocation();
-                return oldP.equals(newP);
-            }
-        });
-    }
-
-    public static void waitForElementtNotChange(By by, int seconds) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, seconds);
-        webDriverWait.until(new Function<WebDriver, Boolean>() {
-            @Override
-            public Boolean apply(WebDriver webDriver) {
-                WebElement e = driver.findElement(by);
-                String oldTxt = e.getText();
-                waitMinus(2000);
-                String newTxt = e.getText();
-                return oldTxt.equals(newTxt);
-            }
-        });
-    }
-
-    public static void waitForFrameSwitch(By by, int seconds) {
-        WebDriverWait waitElement = new WebDriverWait(driver, seconds);
-        waitElement.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
-    }
-
-    public static void waitClick(By by, int seconds) {
-        WebDriverWait waitClick = new WebDriverWait(driver, seconds);
-        waitClick.until(ExpectedConditions.elementToBeClickable(by));
-    }
-
-    public static void waitAttribute(By by, int seconds, String value) {
-        WebDriverWait waitAttribute = new WebDriverWait(driver, seconds);
-        waitAttribute.until(ExpectedConditions.attributeContains(by, value, "Aaaa"));
-    }
-
-    public static void waitText(String title, int seconds) {
-        WebDriverWait waitText = new WebDriverWait(driver, seconds);
-        waitText.until(ExpectedConditions.titleContains(title));
-    }
 
     public static void waitAlert(int seconds) {
         WebDriverWait waitAlert = new WebDriverWait(driver, seconds);
@@ -471,4 +404,5 @@ public class DriverUlti {
 //        WebDriver driver = new ChromeDriver(ch);
 //        driver.get("");
 //    }
+
 }

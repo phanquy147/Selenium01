@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 
 public class WindowHandlePage {
@@ -9,9 +10,11 @@ public class WindowHandlePage {
     By txtNewTab = By.id("sampleHeading");
     By btnNewWindow = By.id("windowButton");
     By txtNewWindow = By.id("sampleHeading");
+    Element element;
 
     public void openNewtab() {
-        DriverUlti.waitForElementVisibility(btnNewTab, time);
+        element = new Element(btnNewTab);
+        element.waitForElementVisibility(btnNewTab, time);
         DriverUlti.click(btnNewTab);
     }
 
@@ -32,20 +35,23 @@ public class WindowHandlePage {
 
     public String txtNewWindowTab() {
         switchToLastTab();
-        DriverUlti.waitForElementVisibility(txtNewTab, time);
+        element = new Element(txtNewTab);
+        element.waitForElementVisibility(txtNewTab, time);
         return DriverUlti.getText(txtNewTab);
     }
 
     public void openNewWindow() {
         switchToFirstWindow();
-        DriverUlti.waitForElementVisibility(btnNewWindow, time);
+        element = new Element(btnNewWindow);
+        element.waitForElementVisibility(btnNewWindow, time);
         DriverUlti.click(btnNewWindow);
         DriverUlti.waitMinus(3000);
     }
 
     public String txtNewWindow() {
         switchToLastTab();
-        DriverUlti.waitForElementVisibility(txtNewWindow, time);
+        element = new Element(txtNewWindow);
+        element.waitForElementVisibility(txtNewWindow, time);
         return DriverUlti.getText(txtNewWindow);
     }
 

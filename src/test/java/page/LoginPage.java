@@ -1,12 +1,14 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 
 public class LoginPage {
     private int timeMode = 60;
     private String iD = "angular";
     private String password = "password";
+    Element element;
 
     By txtUserName = By.id("username");
     By txtPass = By.id("password");
@@ -52,23 +54,27 @@ public class LoginPage {
     }
 
     public void clickBtnLogin() {
-        DriverUlti.waitClick(btnLogin, timeMode);
+        element = new Element(btnLogin);
+        element.waitClick(btnLogin, timeMode);
         DriverUlti.click(btnLogin);
     }
 
     public Boolean checkLogin(String userId, String pass) {
         if (userId.equalsIgnoreCase(iD) && pass.equalsIgnoreCase(password)) {
-            DriverUlti.waitForElementVisibility(txtLoginSuccess, timeMode);
+            element = new Element(txtLoginSuccess);
+            element.waitForElementVisibility(txtLoginSuccess,timeMode);
             return DriverUlti.isDisplayed(txtLoginSuccess);
         } else {
-            DriverUlti.waitForElementVisibility(txtLoginError, timeMode);
+            element = new Element(txtLoginError);
+            element.waitForElementVisibility(txtLoginError,timeMode);
             return DriverUlti.isDisplayed(txtLoginError);
         }
 
     }
 
     public void Login(String userID, String pass, String nameDescription) {
-        DriverUlti.waitForElementVisibility(txtUserName, timeMode);
+        element = new Element(txtUserName);
+        element.waitForElementVisibility(txtUserName, timeMode);
         enterId(userID);
         enterPass(pass);
         enterNameDes(nameDescription);

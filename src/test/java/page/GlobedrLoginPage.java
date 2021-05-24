@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -13,26 +14,31 @@ public class GlobedrLoginPage {
     By btnSignIn = By.xpath("//a[@translate='signIn']");
     By dropCountry = By.xpath("//select");
     int time = 60;
+    Element element;
 
     public void goToLoginPage() {
-        DriverUlti.waitForElement(btnSignIn, time);
+        element = new Element(btnSignIn);
+        element.waitForElement(btnSignIn, time);
         DriverUlti.click(btnSignIn);
     }
 
     public void inputUserLogin(String userLogin) {
-        DriverUlti.waitForElement(userName, time);
+        element = new Element(userName);
+        element.waitForElement(userName, time);
         DriverUlti.clear(userName);
         DriverUlti.sendKeys(userName, userLogin);
     }
 
     public void inputPassLogin(String passLogin) {
-        DriverUlti.waitForElement(password, time);
+        element = new Element(password);
+        element.waitForElement(password, time);
         DriverUlti.clear(password);
         DriverUlti.sendKeys(password, passLogin);
     }
 
     public void selectCountry() {
-        DriverUlti.waitForElementVisibility(dropCountry, time);
+        element = new Element(dropCountry);
+        element.waitForElementVisibility(dropCountry, time);
         DriverUlti.click(dropCountry);
         List<WebElement> listCountry = DriverUlti.findElements(By.xpath("//select/option"));
         for (int i = 0; i < listCountry.size(); i++) {
@@ -43,7 +49,8 @@ public class GlobedrLoginPage {
     }
 
     public void signIn() {
-        DriverUlti.waitForElement(btnSignIn2, time);
+        element = new Element(btnSignIn2);
+        element.waitForElement(btnSignIn2, time);
         DriverUlti.click(btnSignIn2);
     }
 

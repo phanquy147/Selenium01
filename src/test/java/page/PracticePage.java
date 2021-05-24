@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -27,18 +28,21 @@ public class PracticePage {
     By btnClose = By.id("closeLargeModal");
     int time = 60;
     String linkImg = "data/image/";
+    Element element;
 
     public void inputName(String firstName, String lastName) {
-        DriverUlti.waitForElement(txtFirstName, time);
+        element = new Element(txtFirstName);
+        element.waitForElement(txtFirstName, time);
         DriverUlti.click(txtFirstName);
         DriverUlti.sendKeys(txtFirstName, firstName);
-        DriverUlti.waitForElement(txtLastName, time);
+        element.waitForElement(txtLastName, time);
         DriverUlti.click(txtLastName);
         DriverUlti.sendKeys(txtLastName, lastName);
     }
 
     public void inputEmail(String email) {
-        DriverUlti.waitForElement(txtEmail, time);
+        element = new Element(txtEmail);
+        element.waitForElement(txtEmail, time);
         DriverUlti.click(txtEmail);
         DriverUlti.sendKeys(txtEmail, email);
     }
@@ -51,13 +55,15 @@ public class PracticePage {
 //    }
 
     public void inputPhoneNumber(String phoneNumber) {
-        DriverUlti.waitForElement(txtPhone, time);
+        element = new Element(txtPhone);
+        element.waitForElement(txtPhone, time);
         DriverUlti.click(txtPhone);
         DriverUlti.sendKeys(txtPhone, phoneNumber);
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        DriverUlti.waitForElement(txtDateOfBirt, time);
+        element = new Element(txtDateOfBirt);
+        element.waitForElement(txtDateOfBirt, time);
         DriverUlti.click(txtDateOfBirt);
         DriverUlti.executeJS(txtDateOfBirt);
         DriverUlti.sendKeys(txtDateOfBirt, dateOfBirth);
@@ -73,13 +79,15 @@ public class PracticePage {
     }
 
     public void chooseSubject() {
-        DriverUlti.waitForElement(lblAutoSubject, time);
+        element = new Element(lblAutoSubject);
+        element.waitForElement(lblAutoSubject, time);
         List<WebElement> listSubject = DriverUlti.findElements(lblAutoSubject);
         listSubject.get(0).click();
     }
 
     public void inputSubject(String[] sub) {
-        DriverUlti.waitForElement(txtSubject, time);
+        element = new Element(txtSubject);
+        element.waitForElement(txtSubject, time);
         DriverUlti.click(txtSubject);
         for (int i = 0; i < sub.length; i++) {
             DriverUlti.sendKeys(txtSubject, sub[i]);
@@ -115,7 +123,8 @@ public class PracticePage {
 //    }
 
     public void inputAddress(String address) {
-        DriverUlti.waitForElement(txtAddress, time);
+        element = new Element(txtAddress);
+        element.waitForElement(txtAddress, time);
         DriverUlti.click(txtAddress);
 //        if (address != null) {
 //            DriverUlti.sendKeys(txtAddress, address);
@@ -138,7 +147,8 @@ public class PracticePage {
 
     public void selectState(String state) {
         DriverUlti.scrollToViewJs(dropdownState);
-        DriverUlti.waitClick(dropdownState, time);
+        element = new Element(dropdownState);
+        element.waitClick(dropdownState, time);
         DriverUlti.click(dropdownState);
         chooseState(state);
         DriverUlti.waitMinus(5000);
@@ -156,7 +166,8 @@ public class PracticePage {
 
     public void selectCity(String city) {
         DriverUlti.scrollToViewJs(dropdownCity);
-        DriverUlti.waitForElementVisibility(dropdownCity, time);
+        element = new Element(dropdownCity);
+        element.waitForElementVisibility(dropdownCity, time);
         DriverUlti.click(dropdownCity);
         chooseCity(city);
         DriverUlti.waitMinus(5000);
@@ -164,13 +175,15 @@ public class PracticePage {
 
     public void submit() {
         DriverUlti.scrollToViewJs(btnSubmit);
-        DriverUlti.waitClick(btnSubmit, time);
+        element = new Element(btnSubmit);
+        element.waitClick(btnSubmit, time);
         DriverUlti.click(btnSubmit);
         DriverUlti.waitMinus(5000);
     }
 
     public String getProfile(String info) {
-        DriverUlti.waitForElementtNotChange(inforCheck, time);
+        element = new Element(inforCheck);
+        element.waitForElementtNotChange(inforCheck, time);
         List<WebElement> listInfo = DriverUlti.findElements(inforCheck);
         String infoOut = " ";
         for (int i = 0; i < listInfo.size(); i++) {
@@ -208,7 +221,8 @@ public class PracticePage {
     }
 
     public void close() {
-        DriverUlti.waitForElement(btnClose, time);
+        element = new Element(btnClose);
+        element.waitForElement(btnClose, time);
         DriverUlti.click(btnClose);
     }
 

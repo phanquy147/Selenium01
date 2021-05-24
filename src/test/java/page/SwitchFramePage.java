@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 
 public class SwitchFramePage {
@@ -9,7 +10,8 @@ public class SwitchFramePage {
     By txtFrameOld = By.xpath("//td[@align='center']/div[contains(@style,'font-family')]");
 
     public void getTxtFrameOldCouple() {
-        DriverUlti.waitForElementVisibility(frameOldCouple, time);
+        Element element = new Element(frameOldCouple);
+        element.waitForElementVisibility(frameOldCouple, time);
         DriverUlti.switchToFrame(frameOldCouple);
         System.out.println(DriverUlti.getText(txtFrameOld));
         DriverUlti.switchToDefaultFrame();

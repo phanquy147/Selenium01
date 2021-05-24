@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
@@ -14,10 +15,12 @@ public class DragAndDropPage2 {
     By dropElement = By.xpath("//div[@id='droppedlist']/span");
     By logoElement = By.xpath("//div[@class='logo']//img");
     int time = 60;
+    Element element;
 
     public int getXStart(String text) {
         int xStart = 0;
-        DriverUlti.waitForElement(dragElement, time);
+        element = new Element(dragElement);
+        element.waitForElement(dragElement, time);
         List<WebElement> listDrag = DriverUlti.findElements(dragElement);
         for (int i = 0; i < listDrag.size(); i++) {
             if (listDrag.get(i).getText().equalsIgnoreCase(text)) {
@@ -29,7 +32,8 @@ public class DragAndDropPage2 {
     }
 
     public int getYStart(String text) {
-        DriverUlti.waitForElement(dragElement, time);
+        element = new Element(dragElement);
+        element.waitForElement(dragElement, time);
         int yStart = 0;
         List<WebElement> listDrag = DriverUlti.findElements(dragElement);
         for (int i = 0; i < listDrag.size(); i++) {
@@ -42,21 +46,24 @@ public class DragAndDropPage2 {
     }
 
     public int getXEnd() {
-        DriverUlti.waitForElement(dropZoneElement, time);
+        element = new Element(dropZoneElement);
+        element.waitForElement(dropZoneElement, time);
         Point drop = DriverUlti.findElement(dropZoneElement).getLocation();
         int xEnd = drop.getX();
         return xEnd;
     }
 
     public int getYEnd() {
-        DriverUlti.waitForElement(dropZoneElement, time);
+        element = new Element(dropZoneElement);
+        element.waitForElement(dropZoneElement, time);
         Point drop = DriverUlti.findElement(dropZoneElement).getLocation();
         int yEnd = drop.getY();
         return yEnd;
     }
 
     public void clickLogo(){
-        DriverUlti.waitForElement(logoElement,time);
+        element = new Element(logoElement);
+        element.waitForElement(logoElement,time);
         DriverUlti.click(logoElement);
     }
 
@@ -82,7 +89,8 @@ public class DragAndDropPage2 {
     public String txtAfterDrop() {
         String dropText = null;
         DriverUlti.waitMinus(5000);
-        DriverUlti.waitForElementVisibility(dropElement, time);
+        element = new Element(dropElement);
+        element.waitForElementVisibility(dropElement, time);
         List<WebElement> listDrop = DriverUlti.findElements(dropElement);
         for (int i = 0; i < listDrop.size(); i++) {
             dropText = listDrop.get(i).getText().toLowerCase();

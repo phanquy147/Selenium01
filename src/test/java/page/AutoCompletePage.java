@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -13,9 +14,11 @@ public class AutoCompletePage {
     By listColor = By.xpath("//div[@id='autoCompleteMultipleContainer']//div[contains(@class,'value__label')]");
     By txtSingleColor = By.xpath("//div[@id='autoCompleteSingleContainer']//div[contains(@class,'singleValue')]");
     int time = 60;
+    Element element;
 
     public void inputMultiColor(String color1,String color2, String color3) {
-        DriverUlti.waitClick(btnMultipleColor, time);
+        element = new Element(btnMultipleColor);
+        element.waitClick(btnMultipleColor,time);
         DriverUlti.click(btnMultipleColor);
         DriverUlti.sendKeys(btnMultipleColor,color1);
         DriverUlti.sendKeys(btnMultipleColor, Keys.RETURN);
@@ -53,19 +56,22 @@ public class AutoCompletePage {
     }
 
     public String getTxtSingleColor() {
-        DriverUlti.waitForElement(txtSingleColor, time);
+        element = new Element(txtSingleColor);
+        element.waitForElement(txtSingleColor, time);
         return DriverUlti.getText(txtSingleColor);
     }
 
     public void inputSingleColor(String color) {
-        DriverUlti.waitForElement(btnSingleColor, time);
+        element = new Element(btnSingleColor);
+        element.waitForElement(btnSingleColor, time);
         DriverUlti.sendKeys(btnSingleColor,color);
         DriverUlti.sendKeys(btnSingleColor,Keys.RETURN);
         DriverUlti.waitMinus(2000);
     }
 
     public void removeColor(String color) {
-        DriverUlti.waitForElement(listColor, time);
+        element = new Element(listColor);
+        element.waitForElement(listColor, time);
         List<WebElement> list = DriverUlti.findElements(listColor);
         for (int i = 0; i < list.size(); i++) {
             WebElement btnRemoveColor = list.get(i).findElement(By.xpath("./following-sibling::div[contains(@class,'remove')]")) ;

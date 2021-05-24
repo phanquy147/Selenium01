@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -10,10 +11,12 @@ public class SelectMenuPage {
     By boxMenu = By.xpath("//div[@class='category-cards']//div[@class='card-body']/h5");
     By txtSubMenu = By.xpath("//div[@class='element-list collapse show']//li[contains(@id,'item')]");
     int time = 60;
+    Element element;
     //span[@class='text']
 
     public void selectMainMenuPage(String menu) {
-        DriverUlti.waitForElement(boxMenu, time);
+        element = new Element(boxMenu);
+        element.waitForElement(boxMenu, time);
         DriverUlti.scrollToViewJs(boxMenu);
         List<WebElement> listMainMenu = DriverUlti.findElements(boxMenu);
         for (int i = 0; i < listMainMenu.size(); i++) {
@@ -26,7 +29,8 @@ public class SelectMenuPage {
     }
 
     public void selectSubMenu(String subMenu) {
-        DriverUlti.waitForElement(txtSubMenu, time);
+        element = new Element(txtSubMenu);
+        element.waitForElement(txtSubMenu, time);
         DriverUlti.scrollToViewJs(txtSubMenu);
         List<WebElement> listSubMenu = DriverUlti.findElements(txtSubMenu);
         for (int i = 0; i < listSubMenu.size(); i++) {

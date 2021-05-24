@@ -5,15 +5,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.function.Function;
+
+import static com.DriverUlti.waitMinus;
 
 public class Element implements WebElement {
     private By by;
+    private WebDriverWait waitElement;
 
     public Element(By by) {
         this.by = by;
     }
 
-    public WebElement webElement(){
+    public WebElement webElement() {
         return DriverUlti.findElement(by);
     }
 
@@ -102,9 +106,65 @@ public class Element implements WebElement {
         return getScreenshotAs(outputType);
     }
 
-    public void waitForElement(By by, int second){
-        WebDriverWait waitElement = new WebDriverWait(DriverUlti.getDriver(),second);
+    public void waitForElement(By by, int seconds) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
         waitElement.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
+    public void waitForElementVisibility(By by, int seconds) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
+        waitElement.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    public void waitForAllElementVisibility(By by, int seconds) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
+        waitElement.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+    }
+
+    public void waitForPositionNotChange(By by, int seconds) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
+        waitElement.until(new Function<WebDriver, Boolean>() {
+            @Override
+            public Boolean apply(WebDriver webDriver) {
+                Point oldP = webElement().getLocation();
+                waitMinus(2000);
+                Point newP = webElement().getLocation();
+                return oldP.equals(newP);
+
+            }
+        });
+    }
+
+    public void waitForElementtNotChange(By by, int seconds) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
+        waitElement.until(new Function<WebDriver, Boolean>() {
+            @Override
+            public Boolean apply(WebDriver webDriver) {
+                String oldTxt = webElement().getText();
+                waitMinus(2000);
+                String newTxt = webElement().getText();
+                return oldTxt.equals(newTxt);
+            }
+        });
+    }
+
+    public void waitForFrameSwitch(By by, int seconds) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
+        waitElement.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
+    }
+
+    public void waitClick(By by, int seconds) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
+        waitElement.until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    public void waitAttribute(By by, int seconds, String atribute, String value) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
+        waitElement.until(ExpectedConditions.attributeContains(by, atribute, value));
+    }
+
+    public void waitText(String title, int seconds) {
+        waitElement = new WebDriverWait(DriverUlti.getDriver(), seconds);
+        waitElement.until(ExpectedConditions.titleContains(title));
+    }
 }

@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 
@@ -27,7 +28,8 @@ public class SlidePage {
     }
 
     public void selectBtnSlide() {
-        DriverUlti.waitForElement(lableBtnSlide, time);
+        Element element = new Element(lableBtnSlide);
+        element.waitForElement(lableBtnSlide, time);
         getSlideBarLocator();
         getLbBtnLocator();
         DriverUlti.moveToLocator(xLbBtnSlide + 15, ySlideBar);

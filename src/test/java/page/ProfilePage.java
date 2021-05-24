@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 
 public class ProfilePage {
@@ -10,6 +11,7 @@ public class ProfilePage {
     By btnNext = By.xpath("//a[@class='btn btn-block btn-info']");
     By radioBtn = By.xpath("//div[@class='radio']//input");
     By btnSubmit = By.xpath("//button[@type='submit']");
+    Element element;
 
     public void enterUserName(String name) {
         DriverUlti.sendKeys(userName, name);
@@ -40,25 +42,29 @@ public class ProfilePage {
     }
 
     public String txtSubmitPage() {
-        DriverUlti.waitForElementVisibility(By.xpath("//h3"),timeMode);
+        element = new Element(By.xpath("//h3"));
+        element.waitForElementVisibility(By.xpath("//h3"),timeMode);
         return DriverUlti.getText(By.xpath("//h3"));
     }
 
     public void infoPage(String name, String mail) {
-        DriverUlti.waitForElementVisibility(userName, timeMode);
+        element = new Element(userName);
+        element.waitForElementVisibility(userName, timeMode);
         enterUserName(name);
         enterEmail(mail);
         clickBtnNext();
     }
 
     public void interestPage(String value) {
-        DriverUlti.waitForPositionNotChange(radioBtn, timeMode);
+        element = new Element(radioBtn);
+        element.waitForPositionNotChange(radioBtn, timeMode);
         clickRadioBtn(value);
         clickBtnNext();
     }
 
     public void submitPage() {
-        DriverUlti.waitForPositionNotChange(btnSubmit, timeMode);
+        element = new Element(btnSubmit);
+        element.waitForPositionNotChange(btnSubmit, timeMode);
         clickBtnSubmit();
     }
 

@@ -1,20 +1,24 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 
 public class ProgressBarPage {
     By btnStartStop = By.id("startStopButton");
     By progressBar = By.xpath("//div[@id='progressBar']/div[@role='progressbar']");
     int time = 60;
+    Element element;
 
     public void clickBtnToStartProgress() {
-        DriverUlti.waitForElement(btnStartStop, time);
+        element = new Element(btnStartStop);
+        element.waitForElement(btnStartStop, time);
         DriverUlti.click(btnStartStop);
     }
 
     public void stopProgressBar(int number) {
-        DriverUlti.waitForElement(progressBar, time);
+        element = new Element(progressBar);
+        element.waitForElement(progressBar, time);
         int value = 0;
 
         while (value <= number) {
@@ -22,12 +26,12 @@ public class ProgressBarPage {
             value++;
         }
         DriverUlti.click(btnStartStop);
-
     }
 
 
     public String getValueProgressBar() {
-        DriverUlti.waitForElementtNotChange(progressBar, time);
+        element = new Element(progressBar);
+        element.waitForElementtNotChange(progressBar, time);
         return DriverUlti.getText(progressBar);
     }
 }

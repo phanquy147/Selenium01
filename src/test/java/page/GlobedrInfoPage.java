@@ -2,6 +2,7 @@ package page;
 
 import com.CalenderUlti;
 import com.DriverUlti;
+import com.Element;
 import com.ImageUlti;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -52,6 +53,7 @@ public class GlobedrInfoPage {
     By label = By.xpath("//label");
     By avatar = By.xpath("//div[contains(@style,'background-image')]");
     By img = By.xpath("//img");
+    Element element;
 
     int time = 60;
     String value = "value";
@@ -71,7 +73,8 @@ public class GlobedrInfoPage {
     int numberRandom;
 
     public void goToAccountInfoPage() {
-        DriverUlti.waitForElement(btnAccount, time);
+        element = new Element(btnAccount);
+        element.waitForElement(btnAccount, time);
         DriverUlti.click(btnAccount);
         DriverUlti.waitMinus(3000);
     }
@@ -81,7 +84,8 @@ public class GlobedrInfoPage {
     }
 
     public void inputName(String name) {
-        DriverUlti.waitForElement(txtName, time);
+        element = new Element(txtName);
+        element.waitForElement(txtName, time);
         DriverUlti.clear(txtName);
         DriverUlti.sendKeys(txtName, name);
     }
@@ -91,7 +95,8 @@ public class GlobedrInfoPage {
     }
 
     public void inputTitle(String title) {
-        DriverUlti.waitForElement(txtTitle, time);
+        element = new Element(txtTitle);
+        element.waitForElement(txtTitle, time);
         DriverUlti.clear(txtTitle);
         DriverUlti.sendKeys(txtTitle, title);
     }
@@ -106,21 +111,24 @@ public class GlobedrInfoPage {
 
 
     public void inputEmail(String email) {
-        DriverUlti.waitForElement(txtEmail, time);
+        element = new Element(txtEmail);
+        element.waitForElement(txtEmail, time);
         DriverUlti.clear(txtEmail);
         DriverUlti.sendKeys(txtEmail, email);
     }
 
     public void inputPhone() {
         phoneInput = "0" + RandomStringUtils.randomNumeric(9);
-        DriverUlti.waitForElement(txtPhone, time);
+        element = new Element(txtPhone);
+        element.waitForElement(txtPhone, time);
         DriverUlti.clear(txtPhone);
         DriverUlti.sendKeys(txtPhone, phoneInput);
     }
 
     public void inputWorkPhone() {
         workPhoneInput = "0" + RandomStringUtils.randomNumeric(9);
-        DriverUlti.waitForElement(txtWorkPhone, time);
+        element = new Element(txtWorkPhone);
+        element.waitForElement(txtWorkPhone, time);
         DriverUlti.clear(txtWorkPhone);
         DriverUlti.sendKeys(txtWorkPhone, workPhoneInput);
     }
@@ -130,10 +138,11 @@ public class GlobedrInfoPage {
         String[] arrAddress = {"a", "b", "c", "d"};
         Random ran = new Random();
         String street = arrAddress[ran.nextInt(arrAddress.length)];
-        DriverUlti.waitForElement(txtAddress, time);
+        element = new Element(txtAddress);
+        element.waitForElement(txtAddress, time);
         DriverUlti.clear(txtAddress);
         DriverUlti.sendKeys(txtAddress, numberAddress + street);
-        DriverUlti.waitForElement(autoAddress, time);
+        element.waitForElement(autoAddress, time);
         DriverUlti.waitMinus(5000);
         List<WebElement> listAddress = DriverUlti.findElements(autoAddress);
         numberRandom = randomIntegerInRange(0, listAddress.size() - 1);
@@ -149,7 +158,8 @@ public class GlobedrInfoPage {
     }
 
     public void inputDateOfBirth(String dOB) {
-        DriverUlti.waitForElement(txtDOB, time);
+        element = new Element(txtDOB);
+        element.waitForElement(txtDOB, time);
         DriverUlti.executeJS(txtDOB);
         DriverUlti.sendKeys(txtDOB, dOB);
     }
@@ -169,7 +179,8 @@ public class GlobedrInfoPage {
     }
 
     public void selectGender(String gender) {
-        DriverUlti.waitForElement(dropDownGender, time);
+        element = new Element(dropDownGender);
+        element.waitForElement(dropDownGender, time);
         DriverUlti.click(dropDownGender);
         List<WebElement> listGender = DriverUlti.findElements(By.xpath("//label[@translate='gender']/preceding-sibling::select/option"));
         for (int i = 0; i < listGender.size(); i++) {
@@ -222,7 +233,8 @@ public class GlobedrInfoPage {
     }
 
     public void selectVisitCountry(String visitCountry) {
-        DriverUlti.waitForElement(dropDownVisitCountry, time);
+        element = new Element(dropDownVisitCountry);
+        element.waitForElement(dropDownVisitCountry, time);
         DriverUlti.click(dropDownVisitCountry);
         List<WebElement> listVisitCountry = DriverUlti.findElements(By.xpath("//label[@translate='visitCountry']/preceding-sibling::select/option"));
         for (int i = 0; i < listVisitCountry.size(); i++) {
@@ -234,7 +246,8 @@ public class GlobedrInfoPage {
     }
 
     public void selectCountry(String country) {
-        DriverUlti.waitForElement(dropDownCountry, time);
+        element = new Element(dropDownCountry);
+        element.waitForElement(dropDownCountry, time);
         DriverUlti.click(dropDownCountry);
         List<WebElement> listCountry = DriverUlti.findElements(By.xpath("//label[@translate='country']/preceding-sibling::select/option"));
         for (int i = 0; i < listCountry.size(); i++) {
@@ -310,12 +323,14 @@ public class GlobedrInfoPage {
 
 
     public void save() {
-        DriverUlti.waitForElement(btnSave, time);
+        element = new Element(btnSave);
+        element.waitForElement(btnSave, time);
         DriverUlti.click(btnSave);
     }
 
     public void updateImage() throws IOException {
-        DriverUlti.waitForElement(iconCamera, time);
+        element = new Element(iconCamera);
+        element.waitForElement(iconCamera, time);
         DriverUlti.click(iconCamera);
 
 //        File file = new File("/Users/apple/Desktop/QUYCANGKHON-01.png");
@@ -358,7 +373,8 @@ public class GlobedrInfoPage {
         String[] commands = {"osascript", "/Users/apple/Desktop/upload.scpt", aaa};
         Runtime.getRuntime().exec(commands);
 //        upImage();
-        DriverUlti.waitForElementVisibility(btnOk, time);
+        element = new Element(btnOk);
+        element.waitForElementVisibility(btnOk, time);
         DriverUlti.click(btnOk);
     }
 
@@ -399,7 +415,8 @@ public class GlobedrInfoPage {
     }
 
     public String getAvatarLink() {
-        DriverUlti.waitForElement(avatar, time);
+        element = new Element(avatar);
+        element.waitForElement(avatar, time);
         String ava = DriverUlti.getAttribute(avatar, "style");
         String url = "(\"(.*?)\")";
         Pattern pattern = Pattern.compile(url);

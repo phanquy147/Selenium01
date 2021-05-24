@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -18,28 +19,34 @@ public class MousePage {
     String photoXpath = "//img[contains(@src,'%s')]";
     By listPhoto = By.xpath("//ul[@id='gallery']/li");
     By listTrashPhoto = By.xpath("//div[@id='trash']//li");
+    Element element;
 
     public String getTxtHeaderTooltip() {
-        DriverUlti.waitForElementVisibility(header, timemode);
+        element = new Element(header);
+        element.waitForElementVisibility(header, timemode);
         return DriverUlti.getText(header);
     }
 
     public void waitFrameVideoIsSwitch() {
-        DriverUlti.waitForElementVisibility(btnVideoBase, timemode);
+        element = new Element(btnVideoBase);
+        element.waitForElementVisibility(btnVideoBase, timemode);
         DriverUlti.click(btnVideoBase);
-        DriverUlti.waitForFrameSwitch(frame, 500);
+        element = new Element(frame);
+        element.waitForFrameSwitch(frame, 500);
     }
 
     public void moveMouseToBtnLike() {
         waitFrameVideoIsSwitch();
-        DriverUlti.waitForElementVisibility(btnLike, timemode);
+        element = new Element(btnLike);
+        element.waitForElementVisibility(btnLike, timemode);
         DriverUlti.moveToElement(btnLike);
-        DriverUlti.waitForElementVisibility(txtLike, timemode);
+        element.waitForElementVisibility(txtLike, timemode);
         System.out.println(DriverUlti.getText(txtLike));
     }
 
     public void switchToFramePhotoManager() {
-        DriverUlti.waitForElementVisibility(framePhotoManager, timemode);
+        element = new Element(framePhotoManager);
+        element.waitForElementVisibility(framePhotoManager, timemode);
         DriverUlti.switchToFrame(framePhotoManager);
     }
 
@@ -75,10 +82,11 @@ public class MousePage {
 
     public void movePictureToTrash(String name) {
         switchToFramePhotoManager();
-        DriverUlti.waitForElementVisibility(By.xpath(String.format(photoXpath, name)), timemode);
+        element = new Element(By.xpath(String.format(photoXpath, name)));
+        element.waitForElementVisibility(By.xpath(String.format(photoXpath, name)), timemode);
         DriverUlti.dragAndDrop(By.xpath(String.format(photoXpath, name)), trash);
-        DriverUlti.waitForElementVisibility(listPhoto, timemode);
-        DriverUlti.waitForElementVisibility(listTrashPhoto, timemode);
+        element.waitForElementVisibility(listPhoto, timemode);
+        element.waitForElementVisibility(listTrashPhoto, timemode);
         DriverUlti.switchToDefaultFrame();
     }
 

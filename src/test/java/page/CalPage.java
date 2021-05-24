@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 
 public class CalPage {
@@ -12,6 +13,7 @@ public class CalPage {
     By expression = By.xpath("//tr[contains(@class,'ng')]/td/following-sibling::td[count(//th[contains(.,'Expression')]/preceding-sibling::th)]");
     By txtNewReusult = By.xpath("//h2[contains(@class,'ng')]");
     By cbMathEquation = By.xpath("//select[@ng-model='operator']");
+    Element element;
 
     public void sendkeyTxtLeft(int numberLeft) {
         DriverUlti.sendKeys1(txtLeft, numberLeft);
@@ -22,9 +24,10 @@ public class CalPage {
     }
 
     public void clickBtnGo() {
-        DriverUlti.waitForElementVisibility(btnGo, timeMode);
+        element = new Element(btnGo);
+        element.waitForElementVisibility(btnGo, timeMode);
         DriverUlti.click(btnGo);
-        DriverUlti.waitForElementtNotChange(txtNewReusult, timeMode);
+        element.waitForElementtNotChange(txtNewReusult, timeMode);
     }
 
     public String getTxtResult() {
@@ -36,7 +39,8 @@ public class CalPage {
     }
 
     public void enterValue(int numberLeft, int numberRight, String key) {
-        DriverUlti.waitForElementVisibility(txtLeft, timeMode);
+        element = new Element(txtLeft);
+        element.waitForElementVisibility(txtLeft, timeMode);
         sendkeyTxtLeft(numberLeft);
         sendkeyTxtRight(numberRight);
         DriverUlti.selectCb(cbMathEquation, key);

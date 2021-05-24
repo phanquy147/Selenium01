@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import com.Label;
 import com.Textbox;
 import org.openqa.selenium.By;
@@ -38,7 +39,8 @@ public class TextboxPage {
 
     public String getTextAfterInput() {
         clickButtonShowMsg();
-        DriverUlti.waitForElementtNotChange(lblMsgPath, time);
+        Element element = new Element(lblMsgPath);
+        element.waitForElementtNotChange(lblMsgPath, time);
         label = new Label(lblMsgPath);
         String textAfter = label.getText();
         return textAfter;

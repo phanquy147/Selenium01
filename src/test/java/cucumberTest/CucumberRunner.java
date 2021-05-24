@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features={"src/test/java/feature/"},
+        features={"src/test/resources/feature/"},
         monochrome = true,
         glue={"stepdefinitions","src/test/java/stepdefinitions"},
         tags  = "@textbox_01"

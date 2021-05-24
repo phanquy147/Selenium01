@@ -1,6 +1,7 @@
 package page;
 
 import com.DriverUlti;
+import com.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -12,7 +13,7 @@ public class CheckboxPage {
     By txtCheckbox = By.xpath("//input[@type='checkbox']/ancestor::li[@ng-repeat='prod in cat.products']");
     By liTxt = By.xpath("//li[contains(@ng-repeat,'cat')]");
     By liGroupName = By.xpath("//li[@ng-repeat='cat in division.categories']/h3");
-
+    Element element;
     public void checkCheckBoxIsSelected() {
         List<WebElement> listCheckbox = DriverUlti.findElements(checkbox);
         List<WebElement> listCheckboxTxt = DriverUlti.findElements(txtCheckbox);
@@ -54,7 +55,8 @@ public class CheckboxPage {
     }
 
     public void action(String content) {
-        DriverUlti.waitForElementVisibility(checkbox, timeMode);
+        element = new Element(checkbox);
+        element.waitForElementVisibility(checkbox, timeMode);
         checkCheckBoxIsSelected();
         checkCheckBoxNonSelected();
         checkCheckBoxIsDisable();
@@ -67,7 +69,8 @@ public class CheckboxPage {
     }
 
     public boolean isSelectedChk(String content) {
-        DriverUlti.waitForElementVisibility(By.xpath(String.format("//h4[contains(.,'%s')]/input", content)), timeMode);
+        element = new Element(By.xpath(String.format("//h4[contains(.,'%s')]/input", content)));
+        element.waitForElementVisibility(By.xpath(String.format("//h4[contains(.,'%s')]/input", content)), timeMode);
         return DriverUlti.isSelected(By.xpath(String.format("//h4[contains(.,'%s')]/input", content)));
     }
 
